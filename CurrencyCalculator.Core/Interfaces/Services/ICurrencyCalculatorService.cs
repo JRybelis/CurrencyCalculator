@@ -5,4 +5,6 @@ public interface ICurrencyCalculatorService
 {
     Task<List<CurrencyDto>?> GetCurrencies();
     Task<List<EurExchangeRateDto>?> GetEurExchangeRatesByDate(DateTime date);
+    decimal? CalculateCurrencyExchangeValue(decimal amount, string currency, 
+        string exchangeCurrency, List<EurExchangeRateDto> eurExchangeRates);
 }

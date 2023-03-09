@@ -30,4 +30,37 @@ public class CurrencyCalculatorService : ICurrencyCalculatorService
         
         return selectedDateEurExchangeRates;
     }
+
+    public decimal? CalculateCurrencyExchangeValue(decimal amount, string currencyName, 
+        string exchangeCurrencyName, List<EurExchangeRateDto> eurExchangeRates)
+        {
+            decimal? exchangeValue = null;
+            if (currencyName == "EUR")
+            {
+                exchangeValue = CalculateEurExchangeValue(eurExchangeRates, amount, exchangeCurrencyName);
+            } else 
+            {
+                exchangeValue = CalculateForeignCurrencyExchangeValue(eurExchangeRates, amount, currencyName);
+            }
+
+            return exchangeValue;
+        }
+
+    private decimal? CalculateEurExchangeValue(List<EurExchangeRateDto> eurExchangeRates, decimal convertedCurrencyAmount, 
+        string exchangeCurrencyName)
+    {
+        var foreignCurrency = eurExchangeRates.Where(fc => fc.ForeignCurrencyDetails.Currency == exchangeCurrencyName)
+            .FirstOrDefault()?.ForeignCurrencyDetails;
+
+        return convertedCurrencyAmount * foreignCurrency?.Amount;
+    }
+
+    private decimal? CalculateForeignCurrencyExchangeValue(List<EurExchangeRateDto> eurExchangeRates, decimal convertedCurrencyAmount, 
+        string foreignCurrencyName)
+        {
+            var foreignCurrency = eurExchangeRates.Where(fc => fc.ForeignCurrencyDetails.Currency == foreignCurrencyName)
+            .FirstOrDefault()?.ForeignCurrencyDetails;
+
+            return convertedCurrencyAmount / foreignCurrency?.Amount;
+        }
 }
