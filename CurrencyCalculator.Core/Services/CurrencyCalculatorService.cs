@@ -21,4 +21,13 @@ public class CurrencyCalculatorService : ICurrencyCalculatorService
 
         return currencyList;
     }
+
+    public async Task<List<EurExchangeRateDto>?> GetEurExchangeRatesByDate(DateTime date)
+    {
+        _dateValidation.IsDateValid(date);
+
+        var selectedDateEurExchangeRates = await _client.GetEurExchangeRatesByDate(date);
+        
+        return selectedDateEurExchangeRates;
+    }
 }

@@ -51,8 +51,23 @@ public class BankOfLithuaniaClient : IBankOfLithuaniaClient
         var responseMessage = await MakeRestRequest(requestUri);
         var responseString = await responseMessage.Content.ReadAsStringAsync();
 
-        _logger.LogInformation("Parsing response string to CurrencyDto objects.");
+        _logger.LogInformation($"Parsing response string to {nameof(CurrencyDto)} objects.");
         return _resultParser.ParseXmlStringToGetCurrenciesDtos(responseString);
+    }
+
+    public async Task<List<EurExchangeRateDto>?> GetEurExchangeRatesByDate(DateTime date)
+    {
+        var dateString = date.ToString("O", CultureInfo.InvariantCulture).Substring(0, 10);
+        var requestUrl = $"{ClientSettings.RequestUrl}getFxRates?tp=EU&dt={dateString}";
+        _relativeUri = new Uri(requestUrl, UriKind.Relative);
+        var requestUri = new Uri(_httpClient.BaseAddress!, _relativeUri);
+
+        _logger.LogInformation($"Requesting Euro exchange rates for {dateString} from {requestUri.AbsoluteUri}.");
+        var responseMessage = await MakeRestRequest(requestUri);
+        var responseString = await responseMessage.Content.ReadAsStringAsync();
+
+        _logger.LogInformation($"Parsing response string to {nameof(EurExchangeRateDto)} objects.");
+        return _resultParser.ParseXmlStringToGetEurExchangeRateDtos(responseString);
     }
 
     private async Task<HttpResponseMessage> MakeRestRequest(Uri requestUri)

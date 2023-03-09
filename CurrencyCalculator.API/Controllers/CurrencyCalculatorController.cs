@@ -18,10 +18,21 @@ public class CurrencyCalculatorController : ControllerBase
         _currencyCalculatorService = currencyCalculatorService;
     }
 
-    [HttpGet]
+    [HttpGet("GetAllCurrencies")]
     public async Task<ActionResult<List<CurrencyDto>>> GetCurrencies()
     {
         var result = await _currencyCalculatorService.GetCurrencies();
+
+        if (result is null)
+            return NotFound();
+        
+        return result;
+    }
+
+    [HttpGet("GetEurExchangeRatesByDate")]
+    public async Task<ActionResult<List<EurExchangeRateDto>>> GetEurExchangeRatesByDate(DateTime date)
+    {
+        var result = await _currencyCalculatorService.GetEurExchangeRatesByDate(date);
 
         if (result is null)
             return NotFound();

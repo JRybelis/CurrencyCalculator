@@ -4,4 +4,5 @@ namespace CurrencyCalculator.Core.Interfaces.Services.Web;
 public interface IBankOfLithuaniaClient
 {
     Task<List<CurrencyDto>?> GetCurrencies();
+    Task<List<EurExchangeRateDto>?> GetEurExchangeRatesByDate(DateTime date);
 }

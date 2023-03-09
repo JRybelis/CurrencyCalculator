@@ -26,7 +26,7 @@ public class DateValidation : IDateValidation
             // Not a valid date, throw exception.
             throw new ArgumentException(INCORRECT_DATE_FORMAT);
 
-        if(date > _minAcceptedDate)
+        if(date < _minAcceptedDate)
             // Below minimum accepted date, throw exception
             throw new ArgumentOutOfRangeException(MINIMUM_ACCEPTED_QUERY_DATE);
     }
