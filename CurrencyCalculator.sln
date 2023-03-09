@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyCalculator.Core", "CurrencyCalculator.Core\CurrencyCalculator.Core.csproj", "{1C564D7E-DEBA-483C-8720-9DEAC0478257}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyCalculator.Web", "CurrencyCalculator.Web\CurrencyCalculator.Web.csproj", "{31B71680-5A5E-4AE5-A29E-584F702B0F3D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyCalculator.API", "CurrencyCalculator.API\CurrencyCalculator.API.csproj", "{A0A30E21-D0D1-4A32-8576-12454E38644A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,9 +20,9 @@ Global
 		{1C564D7E-DEBA-483C-8720-9DEAC0478257}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C564D7E-DEBA-483C-8720-9DEAC0478257}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C564D7E-DEBA-483C-8720-9DEAC0478257}.Release|Any CPU.Build.0 = Release|Any CPU
-		{31B71680-5A5E-4AE5-A29E-584F702B0F3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31B71680-5A5E-4AE5-A29E-584F702B0F3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{31B71680-5A5E-4AE5-A29E-584F702B0F3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{31B71680-5A5E-4AE5-A29E-584F702B0F3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0A30E21-D0D1-4A32-8576-12454E38644A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0A30E21-D0D1-4A32-8576-12454E38644A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0A30E21-D0D1-4A32-8576-12454E38644A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0A30E21-D0D1-4A32-8576-12454E38644A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
