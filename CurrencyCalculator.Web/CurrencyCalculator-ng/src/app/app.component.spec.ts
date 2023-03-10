@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'CurrencyCalculator.Web'`, () => {
+  it(`should have as title 'CurrencyCalculator-ng'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('CurrencyCalculator.Web');
+    expect(app.title).toEqual('CurrencyCalculator-ng');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('CurrencyCalculator.Web app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('CurrencyCalculator-ng app is running!');
   });
 });
