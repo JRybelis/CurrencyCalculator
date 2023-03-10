@@ -11,6 +11,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatSelectModule} from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
@@ -50,6 +51,7 @@ import { CurrencyComponent } from './currencies/currency.component';
     MatDividerModule,
     MatTableModule,
     MatButtonModule,
+    MatSelectModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule

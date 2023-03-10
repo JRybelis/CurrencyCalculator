@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatOptionSelectionChange } from '@angular/material/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatSelect } from '@angular/material/select';
 import { Currency } from '../currencies/currency';
 
 @Component({
@@ -24,6 +26,10 @@ export class HeaderComponent  implements OnInit {
 
   message: string = 'Returns a list containing exchange rates, as expressed in Litas per 1 currency unit, for the specified date.';
   imageSource: string = '/assets/currencies.jpg';
+
+  checkIfEur(eventData: Event){
+    <HTMLSelectElement>eventData.target
+  }
 
   passDate(eventData: MatDatepickerInputEvent<Date>): void {
     let dateValue = this.formShortDateString(eventData);
