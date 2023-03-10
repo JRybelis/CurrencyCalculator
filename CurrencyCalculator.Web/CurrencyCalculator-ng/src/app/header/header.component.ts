@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { Currency } from '../currencies/currency';
 
 @Component({
   selector: 'app-header',
@@ -9,14 +10,13 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 })
 export class HeaderComponent  implements OnInit {
 
+  @Input() currencies: Currency[] = [];
   minDate: Date;
-  maxDate: Date;
 
   @Output() onDateChange = new EventEmitter();
 
   constructor () {
-    this.minDate = new Date("2000-01-01")
-    this.maxDate = new Date("2014-12-31");
+    this.minDate = new Date("2015-01-01")
   };
 
   ngOnInit() : void {

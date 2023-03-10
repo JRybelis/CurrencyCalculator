@@ -9,6 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
+import {MatButtonModule} from '@angular/material/button';
+import {MatMenuModule} from '@angular/material/menu';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
@@ -42,10 +44,12 @@ import { CurrencyComponent } from './currencies/currency.component';
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,
+    MatMenuModule,
     MatIconModule,
     MatCardModule,
     MatDividerModule,
     MatTableModule,
+    MatButtonModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule
