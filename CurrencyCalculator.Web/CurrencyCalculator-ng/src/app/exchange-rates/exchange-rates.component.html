@@ -4,12 +4,12 @@
   <div class="exchangeRateResult">
     <mat-card class="exchange-rate-card">
       <mat-card-header>
-        <mat-card-title><!--{{exchangeRate.currency}}: {{exchangeRate.rate}} --></mat-card-title>
-        <mat-card-subtitle>vs. previous day rate</mat-card-subtitle>
+        <mat-card-title>Rate</mat-card-title>
+        <mat-card-subtitle>On {{exchangeRate?.date}}:</mat-card-subtitle>
       </mat-card-header>
       <mat-divider></mat-divider>
       <mat-card-content>
-        <span><!-- {{ exchangeRate?.unitDescription }} --></span>
+        <span>{{exchangeRate?.eurCurrencyDetails?.rate}} {{exchangeRate?.eurCurrencyDetails?.currency}}: {{exchangeRate?.foreignCurrencyDetails?.rate}} {{exchangeRate?.foreignCurrencyDetails?.currency}}</span>
         <mat-divider></mat-divider>
       </mat-card-content>
     </mat-card>
