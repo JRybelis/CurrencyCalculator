@@ -10,6 +10,10 @@
   display:inline-flex;
   vertical-align: middle;
 }
+
+mat-form-field {
+  display: block;
+}
 .description-message{
   overflow: hidden;
   text-align: center;

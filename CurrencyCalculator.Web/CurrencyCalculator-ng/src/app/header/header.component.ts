@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatOptionSelectionChange } from '@angular/material/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { MatSelect } from '@angular/material/select';
 import { Currency } from '../currencies/currency';
+import {CURRENCY} from './header.component.utils';
 
 @Component({
   selector: 'app-header',
@@ -10,25 +9,45 @@ import { Currency } from '../currencies/currency';
   providers: [],
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent  implements OnInit {
+export class HeaderComponent  implements OnInit, OnChanges {
 
   @Input() currencies: Currency[] = [];
-  minDate: Date;
-
   @Output() onDateChange = new EventEmitter();
+
+  minDate: Date;
+  state = {
+    selectedCurrencyFrom:'',
+    selectedCurrencyTo:'',
+    currencyAmount: 0,
+    date: null
+  };
 
   constructor () {
     this.minDate = new Date("2015-01-01")
   };
 
+  ngOnChanges(changes: SimpleChanges): void {
+  }
+
   ngOnInit() : void {
   }
 
-  message: string = 'Returns a list containing exchange rates, as expressed in Litas per 1 currency unit, for the specified date.';
+  message: string = 'Converts your selected currency and amount to another currency, for the specified date. One of the exchanged currencies must be euro';
   imageSource: string = '/assets/currencies.jpg';
 
-  checkIfEur(eventData: Event){
-    <HTMLSelectElement>eventData.target
+  checkCurrencyFrom(){
+    const CURRENCY_FROM = this.state.selectedCurrencyFrom;
+    if(CURRENCY_FROM !== CURRENCY.EUR){
+      this.state.selectedCurrencyTo = 'EUR';
+    }
+  }
+
+  checkCurrencyTo(){
+    const CURRENCY_TO = this.state.selectedCurrencyTo;
+    console.log(this.state);
+    if(CURRENCY_TO !== CURRENCY.EUR){
+      this.state.selectedCurrencyFrom = 'EUR';
+    }
   }
 
   passDate(eventData: MatDatepickerInputEvent<Date>): void {
