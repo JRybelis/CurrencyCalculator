@@ -1,17 +1,19 @@
-<button mat-raised-button (click)="getCurrencyList()">See available currencies</button>
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <ng-container matColumnDef="Currency short name">
-    <th mat-header-cell *matHeaderCellDef> Currency short name </th>
-    <td mat-cell *matCellDef="let currency"> {{currency.currency}} </td>
-  </ng-container>
-  <ng-container matColumnDef="Description in Lithuanian">
-    <th mat-header-cell *matHeaderCellDef> Description in Lithuanian </th>
-    <td mat-cell *matCellDef="let currency"> {{currency.descriptionLt}} </td>
-  </ng-container>
-  <ng-container matColumnDef="Description in English">
-    <th mat-header-cell *matHeaderCellDef> Description in English </th>
-    <td mat-cell *matCellDef="let currency"> {{currency.descriptionEn}} </td>
-  </ng-container>
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+<mat-accordion>
+  <mat-expansion-panel class="scrollingData" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title> Check all available currencies </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="content">
+      <div class="headerDescription">
+        <span>Name</span>
+        <span>Description in Lt</span>
+        <span>Description in En</span>
+    </div>
+    <div class="currencyWrapper" *ngFor="let currency of dataSource">
+      <div class="currencyName">{{currency?.currency}}</div>
+      <div class="currencyDescriptionLt">{{currency?.descriptionLt}}</div>
+      <div class="currencyDescriptionEn">{{currency?.descriptionEn}}</div>
+    </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

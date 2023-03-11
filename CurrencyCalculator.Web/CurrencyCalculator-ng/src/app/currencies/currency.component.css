@@ -1,3 +1,27 @@
-table {
+.currencyWrapper {
+  display: inline-flex;
   width: 100%;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.headerDescription {
+  display: inline-flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.currencyDescriptionLt {
+  inline-size: 100px;
+}
+
+.currencyDescriptionEn {
+  inline-size: 100px;
+}
+
+.content {
+  max-height: 65vh;
+  overflow-y: auto;
 }

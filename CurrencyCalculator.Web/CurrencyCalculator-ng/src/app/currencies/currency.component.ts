@@ -12,11 +12,13 @@ export class CurrencyComponent implements OnInit{
   @Output() currenciesOuput: EventEmitter<Currency[]> = new EventEmitter();
 
   dataSource: Currency[] = [];
-  displayedColumns: string[] = ['Currency short name', 'Description in Lithuanian', 'Description in English']
+
+  panelOpenState = false;
 
   constructor(private exchangeRateService: ExchangeRateService) { }
 
   ngOnInit(): void {
+    this.getCurrencyList();
   }
 
   getCurrencyList(): void {

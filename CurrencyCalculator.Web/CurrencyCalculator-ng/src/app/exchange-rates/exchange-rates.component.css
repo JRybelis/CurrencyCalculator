@@ -3,15 +3,18 @@
   margin: 0;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: center;
 }
 .header h1 {
   margin-right: 35%;
   padding: 10px;
 }
-app-header {
-  display: flex;
-  margin-right: auto;
+
+
+app-currency {
+  width: 50%;
+  height: 100%;
 }
 
 .exchangeRates {
