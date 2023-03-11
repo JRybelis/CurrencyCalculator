@@ -31,6 +31,15 @@ public class CurrencyCalculatorService : ICurrencyCalculatorService
         return selectedDateEurExchangeRates;
     }
 
+    public async Task<EurExchangeRateDto?> GetSpecifiedEurExchangeRateByDate(DateTime date, string foreignCurrency)
+    {
+        var selectedDateEurExchangeRates = await GetEurExchangeRatesByDate(date);
+        var specifiedSelectedDateEurExchangeRate = selectedDateEurExchangeRates?.
+            Where(exr => exr.ForeignCurrencyDetails.Currency == foreignCurrency).FirstOrDefault();
+
+        return specifiedSelectedDateEurExchangeRate;
+    }
+
     public decimal? CalculateCurrencyExchangeValue(decimal amount, string currencyName, 
         string exchangeCurrencyName, List<EurExchangeRateDto> eurExchangeRates)
         {
@@ -52,7 +61,7 @@ public class CurrencyCalculatorService : ICurrencyCalculatorService
         var foreignCurrency = eurExchangeRates.Where(fc => fc.ForeignCurrencyDetails.Currency == exchangeCurrencyName)
             .FirstOrDefault()?.ForeignCurrencyDetails;
 
-        return convertedCurrencyAmount * foreignCurrency?.Amount;
+        return convertedCurrencyAmount * foreignCurrency?.Rate;
     }
 
     private decimal? CalculateForeignCurrencyExchangeValue(List<EurExchangeRateDto> eurExchangeRates, decimal convertedCurrencyAmount, 
@@ -61,6 +70,6 @@ public class CurrencyCalculatorService : ICurrencyCalculatorService
             var foreignCurrency = eurExchangeRates.Where(fc => fc.ForeignCurrencyDetails.Currency == foreignCurrencyName)
             .FirstOrDefault()?.ForeignCurrencyDetails;
 
-            return convertedCurrencyAmount / foreignCurrency?.Amount;
+            return convertedCurrencyAmount / foreignCurrency?.Rate;
         }
 }

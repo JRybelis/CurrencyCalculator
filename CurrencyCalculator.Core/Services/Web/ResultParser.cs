@@ -93,8 +93,8 @@ public class ResultParser : IResultParser
     {
         var eurExchangeRateDto = new EurExchangeRateDto
         {
-            EurCurrencyDetails = new CurrencyAmount(),
-            ForeignCurrencyDetails = new CurrencyAmount()
+            EurCurrencyDetails = new CurrencyRate(),
+            ForeignCurrencyDetails = new CurrencyRate()
         };
 
         foreach (XmlElement element in eurExchangeRateItem.ChildNodes)
@@ -108,11 +108,11 @@ public class ResultParser : IResultParser
                     if (element.FirstChild.InnerText == "EUR")
                     {
                         eurExchangeRateDto.EurCurrencyDetails.Currency = element.FirstChild.InnerText;
-                        eurExchangeRateDto.EurCurrencyDetails.Amount = decimal.Parse(element.LastChild.InnerText);
+                        eurExchangeRateDto.EurCurrencyDetails.Rate = decimal.Parse(element.LastChild.InnerText);
                     } else
                     {
                         eurExchangeRateDto.ForeignCurrencyDetails.Currency = element.FirstChild.InnerText;
-                        eurExchangeRateDto.ForeignCurrencyDetails.Amount = decimal.Parse(element.LastChild.InnerText);
+                        eurExchangeRateDto.ForeignCurrencyDetails.Rate = decimal.Parse(element.LastChild.InnerText);
                     }
                     break;
             }

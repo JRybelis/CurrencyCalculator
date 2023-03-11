@@ -40,6 +40,17 @@ public class CurrencyCalculatorController : ControllerBase
         return result;
     }
 
+    [HttpGet("GetSpecifiedEurExchangeRateByDate")]
+    public async Task<ActionResult<EurExchangeRateDto>> GetSpecifiedEurExchangeRateByDate(DateTime date, string foreignCurrency)
+    {
+        var result = await _currencyCalculatorService.GetSpecifiedEurExchangeRateByDate(date, foreignCurrency);
+
+        if(result is null)
+            return NotFound();
+
+        return result;
+    }
+
     [HttpGet("CalculateCurrencyExchangeValue")]
     public async Task<ActionResult<decimal>> CalculateCurrencyExchangeValue(decimal amount, string currency, 
         string exchangeCurrency, DateTime date)
