@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { ExchangeRate } from "../exchange-rates/exchange-rate";
+import { ExchangeRate, UserSelectedExchangeDetails } from "../exchange-rates/exchange-rate.utils";
 import { HandleError, HttpErrorHandler } from "./http-error-handler.service";
 import { Currency } from "../currencies/currency";
 
@@ -17,20 +17,38 @@ export class ExchangeRateService{
       this.handleError = httpErrorHandler.createHandleError('ExchangeRateService');
   }
 
-  // getExchangeRatesByDate(date: string): Observable<ExchangeRate[]> {
-  //   date = date.trim();
-
-  //   const options = date ? {params: new HttpParams().set('date', date)} : {};
-
-  //   return this.http.get<ExchangeRate[]>(this.currencyCalculatorServiceUrl, options)
-  //     .pipe(
-  //       catchError(this.handleError<ExchangeRate[]>('getExchangeRatesByDate', []))
-  //     );
-  // }
-
   getCurrencyList(): Observable<Currency[]>{
     const requestUrl = this.currencyCalculatorServiceUrl + '/GetAllCurrencies';
     return this.http.get<Currency[]>(requestUrl)
       .pipe(catchError(this.handleError<Currency[]>('getCurrencyList', [])));
+  }
+
+  getExchangeRateByDate(date: Date, foreignCurrency: string): Observable<ExchangeRate> {
+    let dateString = this.formShortDateString(date);
+    const requestUrl = this.currencyCalculatorServiceUrl + '/GetSpecifiedEurExchangeRateByDate'
+    const options = date ? {params: new HttpParams().set('date', dateString)
+      .set('foreignCurrency', foreignCurrency)} : {};
+
+    return this.http.get<ExchangeRate>(requestUrl, options)
+      .pipe(catchError(this.handleError<ExchangeRate>('getExchangeRatesByDate')));
+  }
+
+  formShortDateString(date: Date): string {
+    const year: string = '' + date?.getFullYear();
+
+    let month: string = '';
+    if (date?.getMonth()) {
+      month = '' + (date?.getMonth() + 1);
+      if (month?.length < 2) {
+        month = '0' + month;
+      }
+    }
+
+    let day: string = '' + date?.getDate();
+    if (day?.length < 2) {
+      day = '0' + day;
+    }
+
+    return year + '-' + month + '-' + day;
   }
 }

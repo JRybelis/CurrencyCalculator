@@ -6,7 +6,7 @@
   <form class="example-form">
     <mat-form-field appearance="fill">
       <mat-label>Convert from</mat-label>
-      <mat-select [(value)]="state.selectedCurrencyFrom" name="selectedCurrencyFrom" (valueChange)="checkCurrencyFrom()">
+      <mat-select [(value)]="state.selectedCurrencyFrom" name="selectedCurrencyFrom" (valueChange)="checkCurrencyFrom()" required>
         <mat-option *ngFor="let currency of currencies" [value]="currency.currency">
           {{currency.currency}}
         </mat-option>
@@ -14,7 +14,7 @@
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Convert to</mat-label>
-      <mat-select [(value)]="state.selectedCurrencyTo" name="selectedCurrencyTo" (valueChange)="checkCurrencyTo()">
+      <mat-select [(value)]="state.selectedCurrencyTo" name="selectedCurrencyTo" (valueChange)="checkCurrencyTo()" required>
         <mat-option *ngFor="let currency of currencies" [value]="currency.currency">
           {{currency.currency}}
         </mat-option>
@@ -22,30 +22,18 @@
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-label>Amount to be converted</mat-label>
-      <input matInput name="currencyAmount" [(ngModel)]="state.currencyAmount">
+      <input matInput name="currencyAmount" [(ngModel)]="state.currencyAmount" required>
     </mat-form-field>
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Choose a date</mat-label>
       <div class="date-picker">
-        <input matInput [matDatepicker]="picker" name="date" [min]="minDate" [(ngModel)]="state.date" (dateChange)="passDate($event)">
+        <input matInput [matDatepicker]="picker" name="date" [min]="minDate" [(ngModel)]="state.date" required>
         <mat-datepicker-toggle matIconSuffix [for]="picker">
           <mat-icon matDatepickerToggleIcon>edit_calendar</mat-icon>
         </mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
-        <button mat-raised-button color="primary">Submit</button>
+        <button mat-raised-button color="primary" (click)="submitForm()">Submit</button>
       </div>
     </mat-form-field>
-    <mat-card class="result-card">
-      <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Foreign exchange calculation</mat-card-title>
-        <mat-card-subtitle>Selected currency</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <p>
-          You have chosen to convert
-        </p>
-      </mat-card-content>
-    </mat-card>
   </form>
 </div>

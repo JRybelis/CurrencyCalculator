@@ -1,7 +1,8 @@
-import { Component, ElementRef, ViewChild, OnInit, Input } from '@angular/core';
-import { ExchangeRate } from './exchange-rate';
+import { Component, OnInit } from '@angular/core';
+import { ExchangeRate, UserSelectedExchangeDetails } from './exchange-rate.utils';
 import { ExchangeRateService } from '../services/exchange-rate.service';
 import { Currency } from '../currencies/currency';
+import { CURRENCY } from '../header/header.component.utils';
 
 @Component({
   selector: 'app-exchange-rates',
@@ -11,6 +12,7 @@ import { Currency } from '../currencies/currency';
 })
 export class ExchangeRatesComponent implements OnInit{
   exchangeRates: ExchangeRate[] = [];
+  exchangeRate: ExchangeRate | undefined;
   currencyArray: Currency[] = [];
 
   constructor(private exchangeRateService: ExchangeRateService){ }
@@ -22,10 +24,20 @@ export class ExchangeRatesComponent implements OnInit{
     this.currencyArray = currencies;
   };
 
-  // getExchangeRatesByDate(exchangeRateDate: string): void {
-  //   this.exchangeRateService.getExchangeRatesByDate(exchangeRateDate)
-  //     .subscribe((exchangeRates: ExchangeRate[]) => {
-  //       this.exchangeRates = exchangeRates;
-  //     });
-  // }
+  calculateExchangeRate(formData: UserSelectedExchangeDetails): void {
+    let foreignCurrency = this.identifyForeignCurrency(formData);
+    this.exchangeRateService.getExchangeRateByDate(formData.date, foreignCurrency)
+      .subscribe((exchangeRate: ExchangeRate) => {
+        this.exchangeRate = exchangeRate;
+      });
+  }
+
+  identifyForeignCurrency(formData: UserSelectedExchangeDetails): string {
+
+    if(formData.selectedCurrencyFrom !== CURRENCY.EUR) {
+      return formData.selectedCurrencyFrom;
+    }
+
+    return formData.selectedCurrencyTo;
+  }
 }

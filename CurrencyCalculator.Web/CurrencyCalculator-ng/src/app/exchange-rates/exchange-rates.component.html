@@ -1,21 +1,29 @@
 <div class="header">
-  <app-header [currencies]="currencyArray"></app-header>
-  <!-- <app-header (onDateChange)="getExchangeRatesByDate($event)"></app-header> -->
-  <!-- <h1>Exchange rates for {{exchangeRates[0]?.date?.substring(0, 10)}} </h1> -->
+  <app-header [currencies]="currencyArray" (submitExchangeRateRequest)="calculateExchangeRate($event)"></app-header>
   <app-currency (currenciesOuput)="emitToChild($event)"></app-currency>
-</div>
-
-
-<!-- <div class="exchangeRates">
-  <mat-card *ngFor="let exchangeRate of exchangeRates" class="exchange-rate-card">
-    <mat-card-header>
-      <mat-card-title>{{exchangeRate.currency}}: {{exchangeRate.rate}}</mat-card-title>
-      <mat-card-subtitle>vs. previous day rate</mat-card-subtitle>
-    </mat-card-header>
-    <mat-divider></mat-divider>
-    <mat-card-content>
-      <span>{{ exchangeRate?.unitDescription }}</span>
+  <div class="exchangeRateResult">
+    <mat-card class="exchange-rate-card">
+      <mat-card-header>
+        <mat-card-title><!--{{exchangeRate.currency}}: {{exchangeRate.rate}} --></mat-card-title>
+        <mat-card-subtitle>vs. previous day rate</mat-card-subtitle>
+      </mat-card-header>
       <mat-divider></mat-divider>
-    </mat-card-content>
-  </mat-card>
-</div> -->
+      <mat-card-content>
+        <span><!-- {{ exchangeRate?.unitDescription }} --></span>
+        <mat-divider></mat-divider>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="result-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Foreign exchange calculation</mat-card-title>
+        <mat-card-subtitle>Selected currency</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          You have chosen to convert
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

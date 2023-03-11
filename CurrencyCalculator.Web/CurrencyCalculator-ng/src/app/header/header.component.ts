@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Currency } from '../currencies/currency';
+import { UserSelectedExchangeDetails } from '../exchange-rates/exchange-rate.utils';
 import {CURRENCY} from './header.component.utils';
 
 @Component({
@@ -12,14 +12,14 @@ import {CURRENCY} from './header.component.utils';
 export class HeaderComponent  implements OnInit, OnChanges {
 
   @Input() currencies: Currency[] = [];
-  @Output() onDateChange = new EventEmitter();
+  @Output() submitExchangeRateRequest = new EventEmitter();
 
   minDate: Date;
-  state = {
-    selectedCurrencyFrom:'',
-    selectedCurrencyTo:'',
+  state: UserSelectedExchangeDetails = {
+    selectedCurrencyFrom: '',
+    selectedCurrencyTo: '',
     currencyAmount: 0,
-    date: null
+    date: new Date
   };
 
   constructor () {
@@ -44,34 +44,26 @@ export class HeaderComponent  implements OnInit, OnChanges {
 
   checkCurrencyTo(){
     const CURRENCY_TO = this.state.selectedCurrencyTo;
-    console.log(this.state);
     if(CURRENCY_TO !== CURRENCY.EUR){
       this.state.selectedCurrencyFrom = 'EUR';
     }
   }
 
-  passDate(eventData: MatDatepickerInputEvent<Date>): void {
-    let dateValue = this.formShortDateString(eventData);
+  submitForm(): void {
+    //let dateValue = this.formShortDateString(this.state.date);
+    let isExchangingDifferentCurrencies = this.isEurExchangedAgainstNonEurCurrency();
 
-    this.onDateChange.emit(dateValue);
+    if (isExchangingDifferentCurrencies)
+      this.submitExchangeRateRequest.emit(this.state);
   };
 
-  formShortDateString(eventData: MatDatepickerInputEvent<Date>): string {
-    const year: string = '' + eventData?.value?.getFullYear();
+  isEurExchangedAgainstNonEurCurrency(): boolean
+  {
+    if (this.state.selectedCurrencyFrom === CURRENCY.EUR &&
+        this.state.selectedCurrencyTo === CURRENCY.EUR)
+          throw new Error
+          ("Cannot convert Euro to Euro. Please select a foreign currency to convert against.");
 
-    let month: string = '';
-    if (eventData.value?.getMonth()) {
-      month = '' + (eventData.value?.getMonth() + 1);
-      if (month.length < 2) {
-        month = '0' + month;
-      }
-    }
-
-    let day: string = '' + eventData.value?.getDate();
-    if (day.length < 2) {
-      day = '0' + day;
-    }
-
-    return year + '-' + month + '-' + day;
+    return true;
   }
 }
