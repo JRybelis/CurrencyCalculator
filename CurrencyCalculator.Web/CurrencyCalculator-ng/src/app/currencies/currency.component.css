@@ -21,7 +21,16 @@
   inline-size: 100px;
 }
 
+mat-expansion-panel {
+  background-color: #565656;
+}
+
 .content {
   max-height: 65vh;
   overflow-y: auto;
+  color: #c5c5c5;
+}
+
+mat-panel-title {
+  color: #c5c5c5;
 }

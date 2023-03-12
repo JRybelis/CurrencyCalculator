@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Currency } from '../currencies/currency';
 import { UserSelectedExchangeDetails } from '../exchange-rates/exchange-rate.utils';
 import {CURRENCY} from './header.component.utils';
@@ -9,7 +9,7 @@ import {CURRENCY} from './header.component.utils';
   providers: [],
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent  implements OnInit, OnChanges {
+export class HeaderComponent  implements OnInit {
 
   @Input() currencies: Currency[] = [];
   @Output() submitExchangeRateRequest = new EventEmitter();
@@ -25,9 +25,6 @@ export class HeaderComponent  implements OnInit, OnChanges {
   constructor () {
     this.minDate = new Date("2015-01-01")
   };
-
-  ngOnChanges(changes: SimpleChanges): void {
-  }
 
   ngOnInit() : void {
   }
@@ -50,7 +47,6 @@ export class HeaderComponent  implements OnInit, OnChanges {
   }
 
   submitForm(): void {
-    //let dateValue = this.formShortDateString(this.state.date);
     let isExchangingDifferentCurrencies = this.isEurExchangedAgainstNonEurCurrency();
 
     if (isExchangingDifferentCurrencies)

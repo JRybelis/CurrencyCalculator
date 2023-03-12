@@ -1,6 +1,7 @@
 .navbar{
   display: flex;
   background-color: #018e5d;
+  justify-content: space-between;
 }
 
 .site-name{

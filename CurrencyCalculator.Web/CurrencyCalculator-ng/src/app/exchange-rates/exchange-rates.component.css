@@ -4,39 +4,36 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: space-between;
 }
 .header h1 {
   margin-right: 35%;
   padding: 10px;
 }
 
-
 app-currency {
   width: 50%;
   height: 100%;
 }
+mat-card {
+  background-color: #565656;
+}
 
-.exchangeRates {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
+.result-card {
+  margin-top: 20px;
 }
 
 mat-card-title {
-  text-align: justify;
-  color: azure;
+  text-align: start;
+  color: #c5c5c5;
+}
+mat-card-subtitle {
+  margin-bottom: 12px;
+  margin-top: 6px;
+  color: red;
 }
 
 mat-card-content {
-  color: azure;
-}
-
-.rateChangePositive {
-  color: green;
-}
-
-.rateChangeNegative {
-  color: red;
+  color: #c5c5c5;
+  margin-top: 12px;
 }

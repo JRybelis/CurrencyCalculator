@@ -2,28 +2,29 @@
   <app-header [currencies]="currencyArray" (submitExchangeRateRequest)="calculateExchangeRate($event)"></app-header>
   <app-currency (currenciesOuput)="emitToChild($event)"></app-currency>
   <div class="exchangeRateResult">
-    <mat-card class="exchange-rate-card">
+    <mat-card>
       <mat-card-header>
         <mat-card-title>Rate</mat-card-title>
-        <mat-card-subtitle>On {{exchangeRate?.date}}:</mat-card-subtitle>
+        <mat-card-subtitle *ngIf="show">{{exchangeRate?.eurCurrencyDetails?.rate}} {{exchangeRate?.eurCurrencyDetails?.currency}} = {{exchangeRate?.foreignCurrencyDetails?.rate}} {{exchangeRate?.foreignCurrencyDetails?.currency}}</mat-card-subtitle>
       </mat-card-header>
       <mat-divider></mat-divider>
       <mat-card-content>
-        <span>{{exchangeRate?.eurCurrencyDetails?.rate}} {{exchangeRate?.eurCurrencyDetails?.currency}}: {{exchangeRate?.foreignCurrencyDetails?.rate}} {{exchangeRate?.foreignCurrencyDetails?.currency}}</span>
-        <mat-divider></mat-divider>
+        <p *ngIf="show">Declared on: {{displayShortDate}}</p>
+        <mat-divider *ngIf="show"></mat-divider>
       </mat-card-content>
     </mat-card>
     <mat-card class="result-card">
       <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>Calculated amount</mat-card-title>
-        <mat-card-subtitle>{{calculatedAmount}}</mat-card-subtitle>
+        <mat-card-title>Calculated</mat-card-title>
+        <mat-card-subtitle *ngIf="show">{{currencyConversionDetails.selectedCurrencyTo}} {{calculatedAmountTwoDecimalPlaces}}</mat-card-subtitle>
       </mat-card-header>
+      <mat-divider></mat-divider>
       <mat-card-content>
-        <p>
-          You have chosen to convert {{currencyConversionDetails.selectedCurrencyFrom}}{{currencyConversionDetails.currencyAmount}}
-          to {{currencyConversionDetails.selectedCurrencyTo}}, using the exchange rate available on {{currencyConversionDetails.date}}.
+        <p *ngIf="show">
+          You have chosen to convert {{currencyConversionDetails.selectedCurrencyFrom}} {{currencyConversionDetails.currencyAmount}}
+          to {{currencyConversionDetails.selectedCurrencyTo}}, using the exchange rate available on {{displayShortDate}}.
         </p>
+        <mat-divider *ngIf="show"></mat-divider>
       </mat-card-content>
     </mat-card>
   </div>

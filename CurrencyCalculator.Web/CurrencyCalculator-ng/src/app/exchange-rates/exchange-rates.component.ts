@@ -11,10 +11,12 @@ import { CURRENCY } from '../header/header.component.utils';
   styleUrls: ['./exchange-rates.component.css']
 })
 export class ExchangeRatesComponent implements OnInit{
-  calculatedAmount: number | undefined;
+  calculatedAmountTwoDecimalPlaces: string | undefined;
   currencyArray: Currency[] = [];
   currencyConversionDetails: UserSelectedExchangeDetails = {} as UserSelectedExchangeDetails;
+  displayShortDate: string | undefined;
   exchangeRate: ExchangeRate | undefined;
+  show: boolean = false;
 
   constructor(private exchangeRateService: ExchangeRateService){ }
 
@@ -27,8 +29,9 @@ export class ExchangeRatesComponent implements OnInit{
 
   calculateExchangeRate(formData: UserSelectedExchangeDetails): void {
     let foreignCurrency = this.identifyForeignCurrency(formData);
-
+    this.displayShortDate = this.exchangeRateService.formShortDateString(formData.date);
     this.readCurrencyConversionDetails(formData);
+    this.showExchangeRequestDescription();
 
     this.exchangeRateService.getExchangeRateByDate(formData.date, foreignCurrency)
       .subscribe((exchangeRate: ExchangeRate) => {
@@ -37,8 +40,8 @@ export class ExchangeRatesComponent implements OnInit{
 
     this.exchangeRateService.getCalculatedCurrencyExchangeValue(formData)
       .subscribe((calculatedAmount: number) => {
-        console.log(`Calculated amount: ${calculatedAmount}.`)
-        this.calculatedAmount = calculatedAmount;
+        let calculatedAmountAsString = calculatedAmount.toString();
+        this.calculatedAmountTwoDecimalPlaces = calculatedAmountAsString.substring(0, calculatedAmountAsString.indexOf('.')+3);
       })
   }
 
@@ -55,5 +58,9 @@ export class ExchangeRatesComponent implements OnInit{
     }
 
     return formData.selectedCurrencyTo;
+  }
+
+  showExchangeRequestDescription(): void{
+    this.show = !this.show;
   }
 }
