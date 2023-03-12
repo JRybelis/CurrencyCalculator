@@ -11,9 +11,10 @@ import { CURRENCY } from '../header/header.component.utils';
   styleUrls: ['./exchange-rates.component.css']
 })
 export class ExchangeRatesComponent implements OnInit{
-  exchangeRates: ExchangeRate[] = [];
-  exchangeRate: ExchangeRate | undefined;
+  calculatedAmount: number | undefined;
   currencyArray: Currency[] = [];
+  currencyConversionDetails: UserSelectedExchangeDetails = {} as UserSelectedExchangeDetails;
+  exchangeRate: ExchangeRate | undefined;
 
   constructor(private exchangeRateService: ExchangeRateService){ }
 
@@ -26,14 +27,29 @@ export class ExchangeRatesComponent implements OnInit{
 
   calculateExchangeRate(formData: UserSelectedExchangeDetails): void {
     let foreignCurrency = this.identifyForeignCurrency(formData);
+
+    this.readCurrencyConversionDetails(formData);
+
     this.exchangeRateService.getExchangeRateByDate(formData.date, foreignCurrency)
       .subscribe((exchangeRate: ExchangeRate) => {
         this.exchangeRate = exchangeRate;
       });
+
+    this.exchangeRateService.getCalculatedCurrencyExchangeValue(formData)
+      .subscribe((calculatedAmount: number) => {
+        console.log(`Calculated amount: ${calculatedAmount}.`)
+        this.calculatedAmount = calculatedAmount;
+      })
+  }
+
+  readCurrencyConversionDetails(formData: UserSelectedExchangeDetails): void {
+    this.currencyConversionDetails.selectedCurrencyFrom = formData.selectedCurrencyFrom;
+    this.currencyConversionDetails.selectedCurrencyTo = formData.selectedCurrencyTo;
+    this.currencyConversionDetails.currencyAmount = formData.currencyAmount;
+    this.currencyConversionDetails.date = formData.date;
   }
 
   identifyForeignCurrency(formData: UserSelectedExchangeDetails): string {
-
     if(formData.selectedCurrencyFrom !== CURRENCY.EUR) {
       return formData.selectedCurrencyFrom;
     }

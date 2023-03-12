@@ -25,12 +25,26 @@ export class ExchangeRateService{
 
   getExchangeRateByDate(date: Date, foreignCurrency: string): Observable<ExchangeRate> {
     let dateString = this.formShortDateString(date);
-    const requestUrl = this.currencyCalculatorServiceUrl + '/GetSpecifiedEurExchangeRateByDate'
-    const options = date ? {params: new HttpParams().set('date', dateString)
+    const requestUrl = this.currencyCalculatorServiceUrl + '/GetSpecifiedEurExchangeRateByDate';
+    const options = date ? {params: new HttpParams()
+      .set('date', dateString)
       .set('foreignCurrency', foreignCurrency)} : {};
 
     return this.http.get<ExchangeRate>(requestUrl, options)
       .pipe(catchError(this.handleError<ExchangeRate>('getExchangeRatesByDate')));
+  }
+
+  getCalculatedCurrencyExchangeValue(formData: UserSelectedExchangeDetails): Observable<number>{
+    let dateString = this.formShortDateString(formData.date);
+    const requestUrl = this.currencyCalculatorServiceUrl + '/CalculateCurrencyExchangeValue';
+    const options = formData ? {params: new HttpParams()
+      .set('amount', formData.currencyAmount)
+      .set('currency', formData.selectedCurrencyFrom)
+      .set('exchangeCurrency', formData.selectedCurrencyTo)
+      .set('date', dateString)} : {};
+
+    return this.http.get<number>(requestUrl, options)
+      .pipe(catchError(this.handleError<number>('getCalculatedCurrencyExchangeValue')));
   }
 
   formShortDateString(date: Date): string {
