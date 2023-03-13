@@ -29,7 +29,7 @@ import { ExchangeRateService } from './services/exchange-rate.service';
 import { HttpErrorHandler } from './services/http-error-handler.service';
 import { MessageService } from './services/message.service';
 import { CurrencyComponent } from './currencies/currency.component';
-import { MessagesComponent } from './messages/messages.component';
+import { MessageComponent } from './message/message.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import { MessagesComponent } from './messages/messages.component';
     NavComponent,
     HeaderComponent,
     CurrencyComponent,
-    MessagesComponent
+    MessageComponent
   ],
   imports: [
     BrowserModule,

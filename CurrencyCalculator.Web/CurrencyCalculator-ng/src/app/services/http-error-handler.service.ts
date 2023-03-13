@@ -28,13 +28,25 @@ export class HttpErrorHandler {
     return(error: HttpErrorResponse): Observable<T> => {
       console.error(error);
 
-      const message = (error.error instanceof ErrorEvent) ? error.error.message :
+      let message: string = (error.error instanceof ErrorEvent) ? error.error.message :
         `server returned code ${error.status} with body "${error.error}"`;
+      message = this.updateNotFoundResponseMessages(message)
 
-      this.messageService.add(`${serviceName}: ${operation} failed: ${message}`);
+      this.messageService.add(message);
 
       // Let the app keep running by returning a safe result.
       return of( result );
     };
+  }
+
+  updateNotFoundResponseMessages(message: string){
+    const WRONG_FOREIGN_CURRENCY_ERROR_MESSAGE: string =
+      'The foreign currency you provided has no euro exchange rates for the date selected. Please try another currency.';
+
+    if (message.includes('server returned code 404 with body')) {
+      message = WRONG_FOREIGN_CURRENCY_ERROR_MESSAGE;
+    }
+
+    return message;
   }
 }
