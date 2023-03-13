@@ -3,10 +3,11 @@
     <img [src]="imageSource" height="160" width="200">
   </div>
   <p class="description-message">{{message}}</p>
-  <form class="example-form">
+  <form [formGroup]="requestForm">
     <mat-form-field appearance="fill">
       <mat-label>Convert from</mat-label>
-      <mat-select [(value)]="state.selectedCurrencyFrom" name="selectedCurrencyFrom" (valueChange)="checkCurrencyFrom()" required>
+      <mat-select [(value)]="state.selectedCurrencyFrom" name="selectedCurrencyFrom"
+      (valueChange)="checkCurrencyFrom()" formControlName="selectedCurrencyFrom">
         <mat-option *ngFor="let currency of currencies" [value]="currency.currency">
           {{currency.currency}}
         </mat-option>
@@ -14,7 +15,8 @@
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Convert to</mat-label>
-      <mat-select [(value)]="state.selectedCurrencyTo" name="selectedCurrencyTo" (valueChange)="checkCurrencyTo()" required>
+      <mat-select [(value)]="state.selectedCurrencyTo" name="selectedCurrencyTo"
+      (valueChange)="checkCurrencyTo()" formControlName="selectedCurrencyTo">
         <mat-option *ngFor="let currency of currencies" [value]="currency.currency">
           {{currency.currency}}
         </mat-option>
@@ -22,18 +24,25 @@
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-label>Amount to be converted</mat-label>
-      <input matInput name="currencyAmount" [(ngModel)]="state.currencyAmount" required>
+      <input matInput name="currencyAmount" [(ngModel)]="state.currencyAmount"
+      formControlName="currencyAmount" type="number" min="0">
     </mat-form-field>
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Choose a date</mat-label>
       <div class="date-picker">
-        <input matInput [matDatepicker]="picker" name="date" [min]="minDate" [(ngModel)]="state.date" required>
+        <input matInput [matDatepicker]="picker" name="date" [min]="minDate"
+        [(ngModel)]="state.date" formControlName="date">
         <mat-datepicker-toggle matIconSuffix [for]="picker">
           <mat-icon matDatepickerToggleIcon>edit_calendar</mat-icon>
         </mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </div>
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="submitForm()">Submit</button>
+    <button mat-raised-button color="primary"
+    [disabled]="isFormInvalid()"
+    (click)="submitForm()"
+    >Submit</button>
   </form>
 </div>
+
+<!-- *ngIf="currencyAmount?.valid && currencyAmount?.touched" -->
