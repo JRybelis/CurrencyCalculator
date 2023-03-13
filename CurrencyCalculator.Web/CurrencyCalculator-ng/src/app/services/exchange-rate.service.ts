@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ExchangeRate, UserSelectedExchangeDetails } from "../exchange-rates/exchange-rate.utils";
 import { HandleError, HttpErrorHandler } from "./http-error-handler.service";
+import { MessageService } from "./message.service";
 import { Currency } from "../currencies/currency";
 
 @Injectable()
@@ -13,7 +14,7 @@ export class ExchangeRateService{
 
   constructor(
     private http: HttpClient,
-    httpErrorHandler: HttpErrorHandler) {
+    httpErrorHandler: HttpErrorHandler, private messageService: MessageService) {
       this.handleError = httpErrorHandler.createHandleError('ExchangeRateService');
   }
 

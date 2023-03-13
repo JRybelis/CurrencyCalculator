@@ -14,6 +14,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatSelectModule} from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
@@ -28,6 +29,7 @@ import { ExchangeRateService } from './services/exchange-rate.service';
 import { HttpErrorHandler } from './services/http-error-handler.service';
 import { MessageService } from './services/message.service';
 import { CurrencyComponent } from './currencies/currency.component';
+import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { CurrencyComponent } from './currencies/currency.component';
     ExchangeRatesComponent,
     NavComponent,
     HeaderComponent,
-    CurrencyComponent
+    CurrencyComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
@@ -53,6 +56,7 @@ import { CurrencyComponent } from './currencies/currency.component';
     MatTableModule,
     MatButtonModule,
     MatSelectModule,
+    MatSnackBarModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     FormsModule,

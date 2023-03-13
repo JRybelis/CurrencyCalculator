@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ExchangeRate, UserSelectedExchangeDetails } from './exchange-rate.utils';
 import { ExchangeRateService } from '../services/exchange-rate.service';
+import { MessageService } from '../services/message.service';
 import { Currency } from '../currencies/currency';
 import { CURRENCY } from '../header/header.component.utils';
 
@@ -18,7 +19,8 @@ export class ExchangeRatesComponent implements OnInit{
   exchangeRate: ExchangeRate | undefined;
   show: boolean = false;
 
-  constructor(private exchangeRateService: ExchangeRateService){ }
+  constructor(private exchangeRateService: ExchangeRateService,
+    private messageService: MessageService) { }
 
   ngOnInit(): void {
   }
@@ -35,6 +37,7 @@ export class ExchangeRatesComponent implements OnInit{
 
     this.exchangeRateService.getExchangeRateByDate(formData.date, foreignCurrency)
       .subscribe((exchangeRate: ExchangeRate) => {
+        this.updateNotFoundResponseMessages();
         this.exchangeRate = exchangeRate;
       });
 
@@ -43,6 +46,21 @@ export class ExchangeRatesComponent implements OnInit{
         let calculatedAmountAsString = calculatedAmount.toString();
         this.calculatedAmountTwoDecimalPlaces = calculatedAmountAsString.substring(0, calculatedAmountAsString.indexOf('.')+3);
       })
+  }
+
+  updateNotFoundResponseMessages(){
+    const WRONG_FOREIGN_CURRENCY_ERROR_MESSAGE: string =
+      'The foreign currency you provided has no euro exchange rates for the date selected. Please try another currency.';
+
+    if (this.messageService.messages.length > 0) {
+      debugger
+      for (let index = 0; index < this.messageService.messages.length; index++) {
+        let element: string = this.messageService.messages[index];
+        if (element.includes('failed: server returned code 404 with body "null"')) {
+          element = WRONG_FOREIGN_CURRENCY_ERROR_MESSAGE;
+        }
+      }
+    }
   }
 
   readCurrencyConversionDetails(formData: UserSelectedExchangeDetails): void {
