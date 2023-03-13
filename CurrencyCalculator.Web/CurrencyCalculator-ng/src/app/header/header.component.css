@@ -4,7 +4,7 @@
   margin-bottom: 25px;
   display: inline-block;
   vertical-align: middle;
-  background-color: #565656;
+  background-color: #565656e7;
 }
 .date-picker{
   display:inline-flex;
@@ -19,7 +19,7 @@ mat-form-field {
   text-align: left;
   vertical-align: middle;
   inline-size: 200px;
-  color: #c5c5c5;
+  color: white;
 }
 
 button {

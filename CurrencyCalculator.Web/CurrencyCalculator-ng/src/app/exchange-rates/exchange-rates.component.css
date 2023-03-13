@@ -16,7 +16,7 @@ app-currency {
   height: 100%;
 }
 mat-card {
-  background-color: #565656;
+  background-color: #565656e7;
 }
 
 .result-card {
@@ -25,8 +25,9 @@ mat-card {
 
 mat-card-title {
   text-align: start;
-  color: #c5c5c5;
+  color: white;
 }
+
 mat-card-subtitle {
   margin-bottom: 12px;
   margin-top: 6px;
@@ -34,6 +35,6 @@ mat-card-subtitle {
 }
 
 mat-card-content {
-  color: #c5c5c5;
+  color: white;
   margin-top: 12px;
 }

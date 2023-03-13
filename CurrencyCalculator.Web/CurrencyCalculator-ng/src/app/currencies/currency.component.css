@@ -22,15 +22,15 @@
 }
 
 mat-expansion-panel {
-  background-color: #565656;
+  background-color: #565656e7;
 }
 
 .content {
   max-height: 65vh;
   overflow-y: auto;
-  color: #c5c5c5;
+  color: white;
 }
 
 mat-panel-title {
-  color: #c5c5c5;
+  color: white;
 }
